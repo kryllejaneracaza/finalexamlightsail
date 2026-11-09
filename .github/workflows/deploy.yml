@@ -18,10 +18,10 @@ jobs:
           cache: true
 
       - name: Build Flutter Web
+        working-directory: ./my_first_flutter_app
         run: |
           flutter pub get
           flutter build web --release
-
       - name: Upload Build to Server via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -29,7 +29,7 @@ jobs:
           username: ${{ secrets.LIGHTSAIL_USER }}
           key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
           port: ${{ secrets.LIGHTSAIL_PORT }}
-          source: "build/web/*"
+          source: "my_first_flutter_app/build/web/*"
           target: "/var/www/flutter_app"
           strip_components: 3
 
